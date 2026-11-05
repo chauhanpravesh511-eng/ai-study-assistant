@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>PA.AI - Dynamic AI Assistant</title>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.8/dist/purify.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
-body{background:#0A0F1E;color:white;height:100vh;display:flex;flex-direction:column}
+body{background:#0A0F1E;color:white;height:100dvh;display:flex;flex-direction:column}
 .header{padding:15px;text-align:center;border-bottom:1px solid #1E293B;background:#0A0F1E;position:sticky;top:0;z-index:100}
 .header h2{background:linear-gradient(90deg,#3B82F6,#60A5FA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:22px}
 body{background:#0A0F1E; color:white; height:100vh; display:flex; flex-direction:column; overflow:hidden;}
@@ -24,7 +24,7 @@ body{background:#0A0F1E; color:white; height:100vh; display:flex; flex-direction
 .msg.ai h1,.msg.ai h2,.msg.ai h3{margin:10px 0 5px}
 .msg.ai p{margin:6px 0}
 .msg.ai ul{padding-left:20px;margin:6px 0}
-.input-area{display:flex;gap:10px;padding:15px;background:#0A0F1E;border-top:1px solid #1E293B;max-width:800px;width:100%;margin:auto}
+.input-area{display:flex;gap:10px;padding:15px;padding-bottom:calc(25px + env(safe-area-inset-bottom));background:#0A0F1E;border-top:1px solid #1E293B;max-width:800px;width:100%;margin:auto}
 input{flex:1;padding:12px 18px;border-radius:25px;border:1px solid #334155;background:#1E293B;color:white;outline:none;font-size:16px}
 button{padding:12px 20px;border-radius:25px;border:none;background:#2563EB;color:white;cursor:pointer;font-weight:bold}
 .typing{color:#94A3B8;font-style:italic;font-size:14px;padding-left:20px}
