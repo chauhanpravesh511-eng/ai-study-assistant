@@ -1,9 +1,9 @@
 from flask import Flask, render_template, request, jsonify
 import requests
-
+import os
 app = Flask(__name__)
 
-GROQ_API_KEY = ""  # Render ke Environment me daal dena, yahan khaali hi rakh
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")  # Render ke Environment me daal dena, yahan khaali hi rakh
 
 # Memory ke liye - pichli baat yaad rahegi
 chat_history = []
