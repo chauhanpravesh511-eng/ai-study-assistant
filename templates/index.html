@@ -6,15 +6,21 @@
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.8/dist/purify.min.js"></script>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
-html, body {
+  html, body {
+    position: fixed !important;
+    overflow: hidden !important;
+    width: 100%;
+    height: 100dvh;
     overscroll-behavior: none;
-    overscroll-behavior-y: none;
+    touch-action: none;
 }
-
 #chat-container {
+    touch-action: pan-y !important;
     overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
 }
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
+
 body{background:#0A0F1E;color:white;height:100dvh;display:flex;flex-direction:column}
 .header{padding:15px;text-align:center;border-bottom:1px solid #1E293B;background:#0A0F1E;position:sticky;top:0;z-index:100}
 .header h2{background:linear-gradient(90deg,#3B82F6,#60A5FA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:22px}
@@ -41,7 +47,7 @@ button{padding:12px 20px;border-radius:25px;border:none;background:#2563EB;color
 <body>
 <div class="header"><h2>PA.AI - Dynamic AI Assistant</h2><p style="font-size:12px;color:#94A3B8;margin-top:5px;">Bilkul Meta AI ki tarah - Kuch bhi pucho</p></div>
 <div id="chat-container">
-<div class="msg ai">Hi Pravesh! 👋 Main tumhara Dynamic AI Assistant hu. Ab main static nahi, dynamic hu! Kuch bhi pucho jaise "What is DP?" "Memoization kya hai?" "Greedy vs DP?"</div>
+<div class="msg ai">Hi User! 👋 Main tumhara Dynamic AI Assistant hu.</div>
 </div>
 <div id="typing" class="typing" style="display:none;max-width:800px;margin:auto;width:100%;">AI is typing...</div>
 <div class="input-area">
@@ -85,6 +91,20 @@ async function sendMessage(){
   // Sirf tab neeche jayega jab tu pehle se neeche tha
   if(isNearBottom) chat.scrollTop = chat.scrollHeight;
 }
+// Pull-to-Refresh ko poora band karne ke liye
+let lastY = 0;
+document.addEventListener('touchstart', function(e) {
+    lastY = e.touches[0].clientY;
+}, {passive: true});
+
+document.addEventListener('touchmove', function(e) {
+    let chat = document.getElementById('chat-container');
+    let currentY = e.touches[0].clientY;
+    // Agar chat sabse upar hai aur tu neeche kheench raha hai, to rok de
+    if (chat && chat.scrollTop <= 0 && currentY > lastY) {
+        e.preventDefault();
+    }
+}, {passive: false});
 </script>
 </body>
 </html>
