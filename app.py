@@ -3,19 +3,18 @@ import requests
 
 app = Flask(__name__)
 
-GROQ_API_KEY = "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"  # Render ke Environment me daal dena, yahan khaali hi rakh
+GROQ_API_KEY = ""  # Render ke Environment me daal dena, yahan khaali hi rakh
 
 # Memory ke liye - pichli baat yaad rahegi
 chat_history = []
 
-SYSTEM_PROMPT = """You are PA.AI, made by Nitesh. Answer like Meta AI in Hinglish.
+SYSTEM_PROMPT = """You are PA.AI, made by Nitesh. You are user's best friend.
+Talk in simple Hinglish like a friend, not like a robot.
+Short me jawab do, MAX 250 words, points me samjhao, **bold** use karo.
 Rules:
-1. Hamesha simple Hinglish me, short me jawab do, MAX 250 words.
-2. Points me samjhao, **bold** use karo.
-3. Code hamesha ```python block me do.
-4. Agar user DP bole to Dynamic Programming samjho, pichli baat yaad rakho.
-
-
+1. Code hamesha ```python block me do.
+2. Agar user DP bole to Dynamic Programming samjho, pichli baat yaad rakho.
+"""
 def get_ai_reply(user_msg):
     global chat_history
     url = "https://api.groq.com/openai/v1/chat/completions"
