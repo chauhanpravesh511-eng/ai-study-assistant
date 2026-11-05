@@ -14,7 +14,7 @@ Rules:
 2. Points me samjhao, **bold** use karo.
 3. Code hamesha ```python block me do.
 4. Agar user DP bole to Dynamic Programming samjho, pichli baat yaad rakho.
-"""
+
 
 def get_ai_reply(user_msg):
     global chat_history
