@@ -48,9 +48,17 @@ async function sendMessage(){
   let msg = input.value.trim();
   if(!msg) return;
   let chat = document.getElementById('chat-container');
-  chat.innerHTML += `<div class="msg user">${msg}</div>`;
+
+  // Check kar - user neeche hai ya upar purana padh raha hai?
+  let isNearBottom = chat.scrollHeight - chat.scrollTop - chat.clientHeight < 100;
+
+  let userDiv = document.createElement('div');
+  userDiv.className = 'msg user';
+  userDiv.textContent = msg;
+  chat.appendChild(userDiv); // innerHTML ki jagah ye - refresh nahi hoga
   input.value = '';
-  chat.scrollTop = chat.scrollHeight;
+  if(isNearBottom) chat.scrollTop = chat.scrollHeight;
+
   document.getElementById('typing').style.display = 'block';
 
   let res = await fetch('/get_response', {
@@ -61,10 +69,14 @@ async function sendMessage(){
   let data = await res.json();
   document.getElementById('typing').style.display = 'none';
 
-  // YAHAN FIX HAI - marked.parse se ** aur ``` sahi honge
   let cleanHtml = DOMPurify.sanitize(marked.parse(data.reply));
-  chat.innerHTML += `<div class="msg ai">${cleanHtml}</div>`;
-  chat.scrollTop = chat.scrollHeight;
+  let aiDiv = document.createElement('div');
+  aiDiv.className = 'msg ai';
+  aiDiv.innerHTML = cleanHtml;
+  chat.appendChild(aiDiv);
+
+  // Sirf tab neeche jayega jab tu pehle se neeche tha
+  if(isNearBottom) chat.scrollTop = chat.scrollHeight;
 }
 </script>
 </body>
