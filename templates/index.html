@@ -51,11 +51,39 @@ button{padding:12px 20px;border-radius:25px;border:none;background:#2563EB;color
 </div>
 <div id="typing" class="typing" style="display:none;max-width:800px;margin:auto;width:100%;">AI is typing...</div>
 <div class="input-area">
-<input id="userInput" type="text" placeholder="Message your AI Assistant..." onkeypress="if(event.keyCode==13) sendMessage()">
+<input id="userInput" type="text" placeholder="Message your AI Assistant..." onkeypress="if(event.keyCode==13) sendMessage()"
+<button type="button" id="micBtn" onclick="startVoice()" style="padding:12px 14px; background:#1E293B; font-size:19px;">🎤</button>
 <button onclick="sendMessage()">Send</button>
 </div>
+<p id="voiceStatus" style="text-align:center; font-size:13px; color:#94A3B8;"></p>
 
 <script>
+  function startVoice() {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) {
+    alert("Voice Chrome me chalega");
+    return;
+  }
+  const recognition = new SpeechRecognition();
+  recognition.lang = 'hi-IN';
+  recognition.interimResults = false;
+
+  document.getElementById("voiceStatus").innerText = "🎤 Sun raha hu... bolo...";
+  document.getElementById("micBtn").innerText = "🔴";
+  recognition.start();
+
+  recognition.onresult = function(event) {
+    const text = event.results[0][0].transcript;
+    document.getElementById("userInput").value = text;
+    document.getElementById("voiceStatus").innerText = "✅ Tumne bola: " + text;
+    document.getElementById("micBtn").innerText = "🎤";
+  };
+
+  recognition.onerror = function() {
+    document.getElementById("voiceStatus").innerText = "Dobara try karo";
+    document.getElementById("micBtn").innerText = "🎤";
+  };
+}
 async function sendMessage(){
   let input = document.getElementById('userInput');
   let msg = input.value.trim();
